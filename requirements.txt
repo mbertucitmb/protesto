@@ -1,0 +1,38 @@
+# ===============================================================
+# Dependências para a Aplicação de Análise de Crédito com Streamlit
+# Para instalar, execute no seu terminal:
+# pip install -r requirements.txt
+# ===============================================================
+
+# Framework principal da aplicação web
+streamlit==1.36.0
+
+# Menu de navegação customizado para o Streamlit
+streamlit-option-menu==0.3.12
+
+# Manipulação e análise de dados (DataFrames)
+pandas==2.2.2
+
+# Biblioteca fundamental para computação numérica
+numpy==1.26.4
+
+# Usado para ler e escrever arquivos Excel (.xlsx)
+openpyxl==3.1.4
+
+# Usado para converter nomes de colunas (e.g., camelCase para snake_case)
+inflection==0.5.1
+
+# Biblioteca de Machine Learning
+scikit-learn==1.5.0
+
+# Ferramentas para lidar com dados desbalanceados (e.g., SMOTE)
+imbalanced-learn==0.12.3
+
+# Modelo de Machine Learning (Gradient Boosting)
+xgboost==2.1.0
+
+# Otimização bayesiana de hiperparâmetros
+scikit-optimize==0.10.1
+
+# Criação de gráficos interativos
+plotly==5.22.0
