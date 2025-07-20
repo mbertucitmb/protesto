@@ -241,7 +241,7 @@ def page_train():
 
         if st.button("Iniciar Treinamento Completo", type="primary"):
             # A lógica de treinamento é complexa e foi mantida como no original
-            with st.spinner("Processo de treinamento em andamento... Este processo pode ser demorado."):
+            with st.spinner("Processo de treinamento em andamento..."):
                 # Limpeza e preparação dos dados
                 st.write("1. Limpando dados...")
                 df_train.columns = [inflection.underscore(c).strip() for c in df_train.columns]
@@ -272,19 +272,7 @@ def page_train():
                 st.write("4. Otimização de Hiperparâmetros (BayesSearchCV)...")
                 pipeline_for_tuning = ImblearnPipeline(steps=[('preprocessor', preprocessor), ('smote', SMOTE(random_state=42)), ('model', xgb.XGBClassifier(random_state=42, use_label_encoder=False, eval_metric='logloss'))])
                 search_spaces = {'model__n_estimators': Integer(100, 500), 'model__learning_rate': Real(0.01, 0.2, 'log-uniform'), 'model__max_depth': Integer(3, 8), 'model__subsample': Real(0.6, 1.0, 'uniform')}
-                
-                # ==============================================================================
-                # ===== CORREÇÃO APLICADA AQUI PARA EVITAR TRAVAMENTO NO DEPLOY =================
-                # ==============================================================================
-                bayes_cv = BayesSearchCV(
-                    estimator=pipeline_for_tuning, 
-                    search_spaces=search_spaces, 
-                    n_iter=20, 
-                    cv=StratifiedKFold(n_splits=3), 
-                    scoring='precision', 
-                    n_jobs=1,  # <-- MUDANÇA CRÍTICA: de -1 para 1
-                    random_state=42
-                )
+                bayes_cv = BayesSearchCV(estimator=pipeline_for_tuning, search_spaces=search_spaces, n_iter=20, cv=StratifiedKFold(n_splits=3), scoring='precision', n_jobs=-1, random_state=42)
                 bayes_cv.fit(X_train, y_train)
 
                 st.write("5. Treinando modelo final...")
