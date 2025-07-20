@@ -141,7 +141,7 @@ def preprocess_data_for_prediction(df):
 
 def page_home():
     """Página de boas-vindas e instruções."""
-    st.title("Plataforma de Análise de Crédito")
+    st.title("Plataforma de Classificação de Inadimplentes")
     st.markdown("---")
     st.subheader("Bem-vindo à ferramenta de scoring e previsão de pagamento.")
     st.markdown(f"""
