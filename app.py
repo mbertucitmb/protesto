@@ -66,19 +66,22 @@ def load_css():
 # 3. CONSTANTES E CONFIGURAÇÕES DO MODELO
 # ==============================================================================
 PIPELINE_OUTPUT_PATH = 'modelo_protesto_pipeline.joblib'
+
+# CORREÇÃO: Adicionadas as colunas que faltavam ('idade', 'percentual_vencido', 'percentual_pago', 'valor_medio_parcela')
 FEATURES = [
-    'score', 'total_financiado', 'quantidade_parcelas', 'saldo_vencido',
+    'score', 'idade', 'total_financiado', 'quantidade_parcelas', 'saldo_vencido',
     'quantidade_parcelas_vencidas', 'recebido', 'dias_em_atraso',
     'saldo_vencido_com_juros', 'total_pago_com_juros', 'vencidos_sem_juros_tmb',
     'recebido_sem_juros_tmb', 'score_x_idade', 'score_ao_quadrado', 'score_por_idade',
-    'status_cobranca', 'faixa_etaria', 'regiao', 'segmento',
-    'categoria_risco_score', 'modalidade', 'pdd'
+    'percentual_vencido', 'percentual_pago', 'valor_medio_parcela', 'status_cobranca',
+    'faixa_etaria', 'regiao', 'segmento', 'categoria_risco_score', 'modalidade', 'pdd'
 ]
 NUMERIC_FEATURES = [
-    'score', 'total_financiado', 'quantidade_parcelas', 'saldo_vencido',
+    'score', 'idade', 'total_financiado', 'quantidade_parcelas', 'saldo_vencido',
     'quantidade_parcelas_vencidas', 'recebido', 'dias_em_atraso',
     'saldo_vencido_com_juros', 'total_pago_com_juros', 'vencidos_sem_juros_tmb',
-    'recebido_sem_juros_tmb', 'score_x_idade', 'score_ao_quadrado', 'score_por_idade'
+    'recebido_sem_juros_tmb', 'score_x_idade', 'score_ao_quadrado', 'score_por_idade',
+    'percentual_vencido', 'percentual_pago', 'valor_medio_parcela'
 ]
 CATEGORICAL_FEATURES = [
     'status_cobranca', 'faixa_etaria', 'regiao', 'segmento',
@@ -128,6 +131,7 @@ def preprocess_data_for_prediction(df):
     else:
         df_clean['regiao'] = 'Outra'
 
+    # Garante que todas as colunas esperadas pelo modelo existam, preenchendo com 0 se ausentes
     for col in FEATURES:
         if col not in df_clean.columns:
             df_clean[col] = 0
